@@ -39,10 +39,16 @@ public class Parcel {
         return status;
     }
 
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
-        return "Parcel [ID=" + ID + ", weight=" + weight + ", dimensions=" + width + " x " + length + " x " + height +
-                ", daysInDepot=" + daysInDepot + ", status=" + status + "]";
+        return "Parcel [ID=" + ID + ", weight=" + weight +
+                ", dimensions=" + width + " x " + length + " x " +
+                height + ", daysInDepot=" + daysInDepot + ", status=" +
+                status + "]";
     }
 
 }
