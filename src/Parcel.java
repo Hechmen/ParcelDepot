@@ -5,16 +5,16 @@ public class Parcel {
     private int length;
     private int height;
     private int daysInDepot;
-//    private Status status;
+    private Status status;
 
-    public Parcel(String ID, float weight, int width, int length, int height, int daysInDepot) {
+    public Parcel(String ID, float weight, int width, int length, int height, int daysInDepot, Status status) {
         this.ID = ID;
         this.weight = weight;
         this.width = width;
         this.length = length;
         this.height = height;
         this.daysInDepot = daysInDepot;
-//        this.status = status;
+        this.status = status;
     }
 
     public String getID() {
@@ -35,8 +35,14 @@ public class Parcel {
     public int getDaysInDepot() {
         return daysInDepot;
     }
-//    public enum getStatus() {
-//        return status;
-//    }
+    public Status getStatus() {
+        return status;
+    }
+
+    @Override
+    public String toString() {
+        return "Parcel [ID=" + ID + ", weight=" + weight + ", dimensions=" + width + " x " + length + " x " + height +
+                ", daysInDepot=" + daysInDepot + ", status=" + status + "]";
+    }
 
 }
