@@ -11,9 +11,6 @@ public class CustomerQueue {
     public void addCustomer(Customer customer) {
         this.queue.add(customer);
     }
-    public Customer removeCustomer() {
-        return this.queue.remove();
-    }
 
     public boolean isEmpty() {
         return this.queue.isEmpty();
@@ -21,8 +18,15 @@ public class CustomerQueue {
     public int getSize() {
         return this.queue.size();
     }
+
+    public Customer peekNextCustomer() {
+        return this.queue.peek();
+    }
+    public Customer getNextCustomer() {
+        return this.queue.poll(); //Start to process next customer in the queue
+    }
     public void getQueue() {
-        System.out.println("Current queueu: ");
+        System.out.println("Current queue: ");
         for (Customer customer : this.queue) {
             System.out.println(customer);
         }

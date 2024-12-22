@@ -45,9 +45,9 @@ public class Parcel {
 
     @Override
     public String toString() {
-        return "Parcel [ID=" + ID + ", weight=" + weight +
-                ", dimensions=" + width + " x " + length + " x " +
-                height + ", daysInDepot=" + daysInDepot + ", status=" +
+        return "ID= " + ID + ", Weight= " + weight +
+                ", Dimensions= " + width + " x " + length + " x " +
+                height + ", Days in depot= " + daysInDepot + ", Status= " +
                 status + "]";
     }
 
