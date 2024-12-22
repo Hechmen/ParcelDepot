@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36bbaae1-7108-46c6-bf0b-3b50aa2576f6" name="Changes" comment="Parcel and Status">
-      <change afterPath="$PROJECT_DIR$/src/Log.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/LogTester.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Worker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -37,6 +36,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "Application.LogTester.executor": "Run",
     "Application.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -70,7 +70,7 @@
       <updated>1734794559642</updated>
       <workItem from="1734794560754" duration="2592000" />
       <workItem from="1734811289747" duration="2319000" />
-      <workItem from="1734876269681" duration="4022000" />
+      <workItem from="1734876269681" duration="5643000" />
     </task>
     <task id="LOCAL-00001" summary="Parcel and Status">
       <option name="closed" value="true" />
@@ -98,6 +98,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Parcel and Status" />
     <option name="LAST_COMMIT_MESSAGE" value="Parcel and Status" />
   </component>
