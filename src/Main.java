@@ -2,25 +2,27 @@
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        CustomerQueue CustomerQueue = new CustomerQueue();
-        // Adding customers
-        CustomerQueue.addCustomer(new Customer(1, "John Brown", "C101"));
-        CustomerQueue.addCustomer(new Customer(2, "Mary Smith", "C200"));
-        CustomerQueue.addCustomer(new Customer(3, "Sue Jones", "X59"));
+        ParcelMap parcelMap = new ParcelMap();
+        Parcel parcel1 = new Parcel("C101", 10.5f, 5, 10, 15, 2, Status.UNCOLLECTED);
+        Parcel parcel2 = new Parcel("C102", 8.0f, 6, 12, 18, 3, Status.UNCOLLECTED);
 
-        // Peek at the first customer
-        System.out.println("\nNext customer: " + CustomerQueue.peekNextCustomer());
-        System.out.println("Queue size after peek: " + CustomerQueue.getSize());
+        // Adding parcels
+        parcelMap.addParcel(parcel1);
+        parcelMap.addParcel(parcel2);
 
-        // Process the first customer
-        System.out.println("\nProcessing: " + CustomerQueue.getNextCustomer());
-        System.out.println("Queue size after processing: " + CustomerQueue.getSize());
+        System.out.println(parcelMap.toString());
 
-        // Peek again to check the next customer
-        System.out.println("\nNext customer: " + CustomerQueue.peekNextCustomer());
+        // Finding a parcel
+        Parcel foundParcel = parcelMap.findParcel("C101");
+        System.out.println(foundParcel); // Calls Parcel's toString() method
 
-        // Process the next customer
-        System.out.println("\nProcessing: " + CustomerQueue.getNextCustomer());
-        System.out.println("Queue size after second processing: " + CustomerQueue.getSize());
+        // Removing a parcel
+        parcelMap.removeParcel("C101");
+
+        // Checking if a parcel exists
+        boolean exists = parcelMap.containsParcel("C102");
+        System.out.println("Parcel C102 exists: " + exists);
+
+
     }
 }

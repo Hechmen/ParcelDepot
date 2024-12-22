@@ -25,10 +25,14 @@ public class CustomerQueue {
     public Customer getNextCustomer() {
         return this.queue.poll(); //Start to process next customer in the queue
     }
-    public void getQueue() {
-        System.out.println("Current queue: ");
-        for (Customer customer : this.queue) {
-            System.out.println(customer);
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Customer Queue:\n");
+        for (Customer customer : queue) {
+            sb.append(customer).append("\n"); // Assumes Customer has a proper toString() implementation
         }
+        return sb.toString();
     }
 }

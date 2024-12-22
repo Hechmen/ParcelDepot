@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36bbaae1-7108-46c6-bf0b-3b50aa2576f6" name="Changes" comment="Parcel and Status">
+      <change afterPath="$PROJECT_DIR$/src/ParcelMap.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Customer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CustomerQueue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CustomerQueue.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
@@ -70,7 +70,7 @@
       <updated>1734794559642</updated>
       <workItem from="1734794560754" duration="2592000" />
       <workItem from="1734811289747" duration="2319000" />
-      <workItem from="1734876269681" duration="1210000" />
+      <workItem from="1734876269681" duration="2675000" />
     </task>
     <task id="LOCAL-00001" summary="Parcel and Status">
       <option name="closed" value="true" />
@@ -100,21 +100,5 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Parcel and Status" />
     <option name="LAST_COMMIT_MESSAGE" value="Parcel and Status" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Main.java</url>
-          <line>16</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Main.java</url>
-          <line>4</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

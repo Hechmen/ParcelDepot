@@ -21,7 +21,7 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Sequence Number= " + sequenceNumber +
+        return "[Sequence Number= " + sequenceNumber +
                 ", Name= " + name + ", Parcel ID= " + parcelID + "]";
 
     }
