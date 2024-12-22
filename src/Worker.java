@@ -1,5 +1,3 @@
-import java.util.Queue;
-
 public class Worker {
     private CustomerQueue customerQueue;
     private ParcelMap parcelMap;
@@ -9,6 +7,20 @@ public class Worker {
         this.customerQueue = customerQueue;
         this.parcelMap = parcelMap;
         this.log = log;
+    }
+
+    //This constructor was only used for the test of the getCustomerQueue() and getParcelMap()
+    public Worker(CustomerQueue customerQueue, ParcelMap parcelMap) {
+        this.customerQueue = customerQueue;
+        this.parcelMap = parcelMap;
+    }
+
+    public CustomerQueue getCustomerQueue(){
+        return this.customerQueue;
+    }
+
+    public ParcelMap getParcelMap(){
+        return this.parcelMap;
     }
 
     public double calculateFee(Parcel parcel) {

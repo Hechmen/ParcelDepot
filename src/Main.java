@@ -10,18 +10,26 @@ public class Main {
         parcelMap.addParcel(parcel1);
         parcelMap.addParcel(parcel2);
 
-        System.out.println(parcelMap.toString());
+//        System.out.println(parcelMap.toString());
 
         // Finding a parcel
         Parcel foundParcel = parcelMap.findParcel("C101");
-        System.out.println(foundParcel); // Calls Parcel's toString() method
+//        System.out.println(foundParcel); // Calls Parcel's toString() method
 
         // Removing a parcel
         parcelMap.removeParcel("C101");
 
         // Checking if a parcel exists
         boolean exists = parcelMap.containsParcel("C102");
-        System.out.println("Parcel C102 exists: " + exists);
+//        System.out.println("Parcel C102 exists: " + exists);
+        CustomerQueue customerQueue = new CustomerQueue();
+        Customer customer1 = new Customer(1, "John", "C101");
+        Customer customer2 = new Customer(2, "Jane", "C102");
+        customerQueue.addCustomer(customer1);
+        customerQueue.addCustomer(customer2);
+        Worker worker = new Worker(customerQueue, parcelMap);
+        System.out.println(worker.getCustomerQueue());
+        System.out.println(worker.getParcelMap());
 
 
     }
