@@ -27,9 +27,9 @@ public class Main {
         Customer customer2 = new Customer(2, "Jane", "C102");
         customerQueue.addCustomer(customer1);
         customerQueue.addCustomer(customer2);
-        Worker worker = new Worker(customerQueue, parcelMap);
-        System.out.println(worker.getCustomerQueue());
-        System.out.println(worker.getParcelMap());
+//        Worker worker = new Worker(customerQueue, parcelMap);
+//        System.out.println(worker.getCustomerQueue());
+//        System.out.println(worker.getParcelMap());
 
 
     }

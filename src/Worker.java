@@ -10,10 +10,10 @@ public class Worker {
     }
 
     //This constructor was only used for the test of the getCustomerQueue() and getParcelMap()
-    public Worker(CustomerQueue customerQueue, ParcelMap parcelMap) {
-        this.customerQueue = customerQueue;
-        this.parcelMap = parcelMap;
-    }
+//    public Worker(CustomerQueue customerQueue, ParcelMap parcelMap) {
+//        this.customerQueue = customerQueue;
+//        this.parcelMap = parcelMap;
+//    }
 
     public CustomerQueue getCustomerQueue(){
         return this.customerQueue;
