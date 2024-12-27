@@ -2,35 +2,40 @@
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
+        // Step 1: Create mock data for parcels
         ParcelMap parcelMap = new ParcelMap();
-        Parcel parcel1 = new Parcel("C101", 10.5f, 5, 10, 15, 2, Status.UNCOLLECTED);
-        Parcel parcel2 = new Parcel("C102", 8.0f, 6, 12, 18, 3, Status.UNCOLLECTED);
+        parcelMap.addParcel(new Parcel("P123", 5, 2, 10, 15, 20, Status.UNCOLLECTED));
+        parcelMap.addParcel(new Parcel("P124", 3, 1, 5, 8, 12, Status.UNCOLLECTED));
+        parcelMap.addParcel(new Parcel("N125", 7, 3, 20, 25, 30, Status.UNCOLLECTED));
 
-        // Adding parcels
-        parcelMap.addParcel(parcel1);
-        parcelMap.addParcel(parcel2);
-
-//        System.out.println(parcelMap.toString());
-
-        // Finding a parcel
-        Parcel foundParcel = parcelMap.findParcel("C101");
-//        System.out.println(foundParcel); // Calls Parcel's toString() method
-
-        // Removing a parcel
-        parcelMap.removeParcel("C101");
-
-        // Checking if a parcel exists
-        boolean exists = parcelMap.containsParcel("C102");
-//        System.out.println("Parcel C102 exists: " + exists);
+        // Step 2: Create mock data for customers
         CustomerQueue customerQueue = new CustomerQueue();
-        Customer customer1 = new Customer(1, "John", "C101");
-        Customer customer2 = new Customer(2, "Jane", "C102");
-        customerQueue.addCustomer(customer1);
-        customerQueue.addCustomer(customer2);
-//        Worker worker = new Worker(customerQueue, parcelMap);
-//        System.out.println(worker.getCustomerQueue());
-//        System.out.println(worker.getParcelMap());
+        customerQueue.addCustomer(new Customer(1, "Alice", "P123"));
+        customerQueue.addCustomer(new Customer(2, "Bob", "P124"));
+        customerQueue.addCustomer(new Customer(3, "Charlie", "N125"));
 
+        // Step 3: Initialize Log
+        Log log = Log.getInstance();
 
+        // Step 4: Create Worker and process customers
+        Worker worker = new Worker(customerQueue, parcelMap, log);
+        while (!customerQueue.isEmpty()) {
+            worker.processNextCustomer();
+        }
+
+        // Step 5: Output logs
+        System.out.println("Processing Log:");
+        log.displayLog();
+
+        // Step 6: Check parcel statuses
+        System.out.println("\nUpdated Parcel Statuses:");
+        for (Parcel parcel : parcelMap.getAllParcels()) {
+            System.out.println(parcel);
+        }
+
+        // Step 7: Write logs to a file
+        String logFile = "ProcessingLog.txt";
+        log.writeLogToFile(logFile);
+        System.out.println("\nLog has been written to: " + logFile);
     }
 }

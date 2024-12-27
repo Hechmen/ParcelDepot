@@ -1,3 +1,4 @@
+import java.util.Collection;
 import java.util.HashMap;
 
 public class ParcelMap {
@@ -19,6 +20,10 @@ public class ParcelMap {
     }
     public boolean containsParcel(String ID) {
         return parcels.containsKey(ID);
+    }
+
+    public Collection<Parcel> getAllParcels() {
+        return parcels.values();
     }
 
     @Override

@@ -36,7 +36,7 @@ public class Worker {
 
     public void processNextCustomer() {
         Customer nextCustomer = customerQueue.getNextCustomer();
-        if (nextCustomer != null) {
+        if (nextCustomer == null) {
             log.addLog("No customer in the queue.");
             return;
         }
@@ -52,4 +52,5 @@ public class Worker {
         parcel.setStatus(Status.COLLECTED);
         log.addLog("Customer " + nextCustomer.getName() + " collected parcel " + parcelID + " with fee " + fee);
     }
+
 }

@@ -24,12 +24,12 @@ public class Manager {
                 if (data.length != 6) continue;
 
                 String id = data[0].trim();
-                float weight = Float.parseFloat(data[1].trim());
+                double weight = Double.parseDouble(data[1].trim());
                 int width = Integer.parseInt(data[2].trim());
                 int length = Integer.parseInt(data[3].trim());
                 int height = Integer.parseInt(data[4].trim());
                 int daysInDepot = Integer.parseInt(data[5].trim());
-                Parcel parcel = new Parcel(id, daysInDepot, weight, width, length, height, Status.UNCOLLECTED);
+                Parcel parcel = new Parcel(id, weight, width, length, height, daysInDepot, Status.UNCOLLECTED);
                 parcelMap.addParcel(parcel);
             }
         } catch (IOException | NumberFormatException e) {
@@ -40,15 +40,16 @@ public class Manager {
     private void readCustomersFromFile(String customersFile) {
         try (BufferedReader br = new BufferedReader(new FileReader(customersFile))) {
             String line;
+            int seqNo = 1;
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
-                if (data.length != 3) continue;
+                if (data.length != 2) continue;
 
-                int seqNo = Integer.parseInt(data[0].trim());
-                String name = data[1].trim();
-                String parcelID = data[2].trim();
+                String name = data[0].trim();
+                String parcelID = data[1].trim();
                 Customer customer = new Customer(seqNo, name, parcelID);
                 customerQueue.addCustomer(customer);
+                seqNo++;
             }
         } catch (IOException | NumberFormatException e) {
             System.err.println("Error reading customers file: " + e.getMessage());
@@ -56,14 +57,19 @@ public class Manager {
     }
 
     public void startProcessing() {
-        Worker worker = new Worker(customerQueue, parcelMap);
-        worker.processCustomers();
+        Log log = Log.getInstance();
+        Worker worker = new Worker(customerQueue, parcelMap, log);
+        while (!customerQueue.isEmpty()) {
+            worker.processNextCustomer();
+        }
     }
 
     public static void main(String[] args) {
-        Manager manager = new Manager();
-        String parcelsFile = "Parcels.csv";
-        String customersFile = "Custs.csv";
+        ParcelMap parcelMap = new ParcelMap();
+        CustomerQueue customerQueue = new CustomerQueue();
+        Manager manager = new Manager(parcelMap, customerQueue);
+        String parcelsFile = "src/Parcels.csv";
+        String customersFile = "src/Custs.csv";
         manager.initializeData(parcelsFile, customersFile);
         manager.startProcessing();
     }

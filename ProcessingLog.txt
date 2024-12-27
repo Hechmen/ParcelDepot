@@ -1,0 +1,3 @@
+Customer Alice collected parcel P123 with fee 156.0
+Customer Bob collected parcel P124 with fee 25.6
+Customer Charlie collected parcel N125 with fee 758.4

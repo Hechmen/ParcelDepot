@@ -1,13 +1,13 @@
 public class Parcel {
     private String ID;
-    private float weight;
+    private double weight;
     private int width;
     private int length;
     private int height;
     private int daysInDepot;
     private Status status;
 
-    public Parcel(String ID, float weight, int width, int length, int height, int daysInDepot, Status status) {
+    public Parcel(String ID, double weight, int width, int length, int height, int daysInDepot, Status status) {
         this.ID = ID;
         this.weight = weight;
         this.width = width;
@@ -20,7 +20,7 @@ public class Parcel {
     public String getID() {
         return ID;
     }
-    public float getWeight() {
+    public double getWeight() {
         return weight;
     }
     public int getWidth() {
