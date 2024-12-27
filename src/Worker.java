@@ -46,7 +46,7 @@ public class Worker {
 
         double fee = calculateFee(parcel);
         parcel.setStatus(Status.COLLECTED);
-        log.addLog("Customer " + nextCustomer.getName() + " collected parcel " + parcelID + " with fee " + fee);
+        log.addLog("Customer " + nextCustomer.getName() + " collected parcel " + parcelID + " with fee " + String.format("%.2f", fee));
     }
 
     // New method to process all customers in the queue
