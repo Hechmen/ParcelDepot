@@ -23,9 +23,11 @@ public class Worker {
         double sizeFee = (parcel.getWidth() * parcel.getHeight() * parcel.getLength()) / 2;
         double daysFee = parcel.getDaysInDepot() * 0.2;
 
-        double discount = parcel.getID().startsWith("N") ? 2.0 : 0.0;
+        double discount;
+        if (parcel.getID().startsWith("N")) discount = 5.0;
+        else discount = 0.0;
 
-        return baseFee + weightFee + sizeFee + discount;
+        return baseFee + weightFee + sizeFee + daysFee - discount;
     }
 
     public void processNextCustomer() {
