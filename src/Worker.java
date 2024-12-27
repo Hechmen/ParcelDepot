@@ -9,12 +9,6 @@ public class Worker {
         this.log = log;
     }
 
-    //This constructor was only used for the test of the getCustomerQueue() and getParcelMap()
-//    public Worker(CustomerQueue customerQueue, ParcelMap parcelMap) {
-//        this.customerQueue = customerQueue;
-//        this.parcelMap = parcelMap;
-//    }
-
     public CustomerQueue getCustomerQueue(){
         return this.customerQueue;
     }
@@ -51,6 +45,13 @@ public class Worker {
         double fee = calculateFee(parcel);
         parcel.setStatus(Status.COLLECTED);
         log.addLog("Customer " + nextCustomer.getName() + " collected parcel " + parcelID + " with fee " + fee);
+    }
+
+    // New method to process all customers in the queue
+    public void startProcessing() {
+        while (!customerQueue.isEmpty()) {
+            processNextCustomer();
+        }
     }
 
 }

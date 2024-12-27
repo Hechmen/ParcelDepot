@@ -30,8 +30,11 @@ public class CustomerQueue {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Customer Queue:\n");
-        for (Customer customer : queue) {
-            sb.append(customer).append("\n"); // Assumes Customer has a proper toString() implementation
+        for (Customer customer : queue) { // Iterate over all customers in the queue
+            sb.append(customer).append("\n");
+        }
+        if (queue.isEmpty()) {
+            sb.append("No customers in the queue.");
         }
         return sb.toString();
     }

@@ -30,11 +30,13 @@ public class ParcelMap {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Parcels in Depot:\n");
-        for (String id : parcels.keySet()) {
-            sb.append("Parcel: ").append(parcels.get(id)).append("\n");
+        for (Parcel parcel : parcels.values()) {
+            sb.append(parcel).append("\n");
+        }
+        if (parcels.isEmpty()) {
+            sb.append("No parcels in the depot.");
         }
         return sb.toString();
     }
-
 
 }
