@@ -1,14 +1,25 @@
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Manager {
     private ParcelMap parcelMap;
     private CustomerQueue customerQueue;
+    private Log log;
+    private JFrame frame;
+    private JTextArea parcelArea;
+    private JTextArea customerQueueArea;
+    private JTextArea logArea;
 
     public Manager(ParcelMap parcelMap, CustomerQueue customerQueue) {
         this.parcelMap = parcelMap;
         this.customerQueue = customerQueue;
+        this.log = Log.getInstance();
+        createAndShowGUI();
     }
 
     public void initializeData(String parcelsFile, String customersFile) {
@@ -72,40 +83,119 @@ public class Manager {
         while (!customerQueue.isEmpty()) {
             worker.processNextCustomer();
         }
+        updateParcelArea(); // Update the GUI after processing
+        updateCustomerQueueArea();
+        updateLogArea();
     }
 
-    public static void main(String[] args) {
-        // Paths to files (update as necessary)
-        String parcelsFile = "src/Parcels.csv";
-        String customersFile = "src/Custs.csv";
+    private void createAndShowGUI() {
+        // Main frame
+        frame = new JFrame("Depot Management System");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(new BorderLayout());
+        frame.setSize(800, 600);
 
-        // Initialize ParcelMap and CustomerQueue
+        // Panels
+        JPanel mainPanel = new JPanel(new GridLayout(1, 3));
+
+        // Parcels Panel
+        JPanel parcelPanel = new JPanel(new BorderLayout());
+        parcelPanel.setBorder(BorderFactory.createTitledBorder("Parcels in Depot"));
+        parcelArea = new JTextArea();
+        parcelArea.setEditable(false);
+        parcelPanel.add(new JScrollPane(parcelArea), BorderLayout.CENTER);
+
+        // Customer Queue Panel
+        JPanel customerQueuePanel = new JPanel(new BorderLayout());
+        customerQueuePanel.setBorder(BorderFactory.createTitledBorder("Customer Queue"));
+        customerQueueArea = new JTextArea();
+        customerQueueArea.setEditable(false);
+        customerQueuePanel.add(new JScrollPane(customerQueueArea), BorderLayout.CENTER);
+
+        // Logs Panel
+        JPanel logPanel = new JPanel(new BorderLayout());
+        logPanel.setBorder(BorderFactory.createTitledBorder("Logs"));
+        logArea = new JTextArea();
+        logArea.setEditable(false);
+        logPanel.add(new JScrollPane(logArea), BorderLayout.CENTER);
+
+        // Add panels to the main panel
+        mainPanel.add(parcelPanel);
+        mainPanel.add(customerQueuePanel);
+        mainPanel.add(logPanel);
+
+        // Buttons
+        JPanel buttonPanel = new JPanel();
+        JButton loadButton = new JButton("Load Data");
+        JButton processButton = new JButton("Process all Customers");
+        JButton displayLogButton = new JButton("Display Logs");
+
+        // Add action listeners
+        loadButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loadData(); // Calls initializeData internally
+            }
+        });
+
+        processButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                startProcessing(); // Processes all customers in the queue
+            }
+        });
+
+        displayLogButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateLogArea(); // Displays logs in the log panel
+            }
+        });
+
+        // Add buttons to the button panel
+        buttonPanel.add(loadButton);
+        buttonPanel.add(processButton);
+        buttonPanel.add(displayLogButton);
+
+        // Add main panel and button panel to frame
+        frame.add(mainPanel, BorderLayout.CENTER);
+        frame.add(buttonPanel, BorderLayout.SOUTH);
+
+        // Display the frame
+        frame.setVisible(true);
+    }
+
+    private void loadData() {
+        try {
+            String parcelsFile = "src/Parcels.csv"; // Update with actual path
+            String customersFile = "src/Custs.csv"; // Update with actual path
+            initializeData(parcelsFile, customersFile);
+            updateParcelArea();
+            updateCustomerQueueArea();
+            log.addLog("Data loaded successfully.");
+            updateLogArea();
+        } catch (Exception e) {
+            log.addLog("Error loading data: " + e.getMessage());
+            updateLogArea();
+        }
+    }
+
+    private void updateParcelArea() {
+        parcelArea.setText(parcelMap.toString());
+    }
+
+    private void updateCustomerQueueArea() {
+        customerQueueArea.setText(customerQueue.toString());
+    }
+
+    private void updateLogArea() {
+        logArea.setText(log.getLogs());
+    }
+
+
+    public static void main(String[] args) {
         ParcelMap parcelMap = new ParcelMap();
         CustomerQueue customerQueue = new CustomerQueue();
-
-        // Initialize Manager
-        Manager manager = new Manager(parcelMap, customerQueue);
-        manager.initializeData(parcelsFile, customersFile);
-
-        // Display loaded parcels and customers for verification
-        System.out.println("Parcels loaded:");
-        System.out.println(parcelMap);
-
-        System.out.println("Customers in queue:");
-        System.out.println(customerQueue);
-
-        // Initialize Worker and process customers
-        Log log = Log.getInstance();
-        Worker worker = new Worker(customerQueue, parcelMap, log);
-        System.out.println("Processing customers...");
-        worker.startProcessing(); // Ensure startProcessing exists and functions correctly
-
-        // Write logs to file and display in console
-        String logFile = "src/logs.txt"; // File to save logs
-        log.writeLogToFile(logFile);
-        System.out.println("Logs written to file: " + logFile);
-
-        System.out.println("Logs:");
-        log.displayLog();
+        new Manager(parcelMap, customerQueue);
     }
 }

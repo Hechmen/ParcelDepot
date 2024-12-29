@@ -32,4 +32,7 @@ public class Log {
     public void displayLog(){
         System.out.println(logBuffer.toString());
     }
+    public String getLogs() {
+        return logBuffer.toString();
+    }
 }
