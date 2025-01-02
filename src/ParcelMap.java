@@ -1,5 +1,5 @@
-import java.util.Collection;
-import java.util.HashMap;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ParcelMap {
     private HashMap<String, Parcel> parcels;
@@ -12,18 +12,33 @@ public class ParcelMap {
         String ID = parcel.getID();
         parcels.put(ID, parcel);
     }
+
     public Parcel removeParcel(String ID) {
         return parcels.remove(ID);
     }
+
     public Parcel findParcel(String ID) {
         return parcels.get(ID);
     }
+
     public boolean containsParcel(String ID) {
         return parcels.containsKey(ID);
     }
 
     public Collection<Parcel> getAllParcels() {
         return parcels.values();
+    }
+
+    /**
+     * Sort parcels by a given comparator.
+     *
+     * @param comparator Comparator to determine the sorting order.
+     * @return List of parcels sorted by the given comparator.
+     */
+    public List<Parcel> sortParcels(Comparator<Parcel> comparator) {
+        return parcels.values().stream()
+                .sorted(comparator)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -38,5 +53,4 @@ public class ParcelMap {
         }
         return sb.toString();
     }
-
 }
