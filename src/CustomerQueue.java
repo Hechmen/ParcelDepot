@@ -26,6 +26,11 @@ public class CustomerQueue {
         return this.queue.poll(); //Start to process next customer in the queue
     }
 
+    public boolean containsCustomer(String parcelID) {
+        return queue.stream().anyMatch(customer -> customer.getParcelID().equals(parcelID));
+    }
+
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -37,5 +42,9 @@ public class CustomerQueue {
             sb.append("No customers in the queue.");
         }
         return sb.toString();
+    }
+
+    public int size() {
+        return this.queue.size();
     }
 }

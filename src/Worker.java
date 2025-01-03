@@ -33,7 +33,7 @@ public class Worker {
     public void processNextCustomer() {
         Customer nextCustomer = customerQueue.getNextCustomer();
         if (nextCustomer == null) {
-            log.addLog("No customer in the queue.");
+            log.addLog("No customers in the queue.");
             return;
         }
 
@@ -41,6 +41,11 @@ public class Worker {
         Parcel parcel = parcelMap.findParcel(parcelID);
         if (parcel == null) {
             log.addLog("Parcel with ID " + parcelID + " not found for customer " + nextCustomer.getName());
+            return;
+        }
+
+        if (parcel.getStatus() == Status.COLLECTED) {
+            log.addLog("Parcel with ID " + parcelID + " has already been collected.");
             return;
         }
 

@@ -19,6 +19,8 @@ public class Manager {
         this.view = new View();
 
         initializeListeners();
+        System.out.println("Log instance: " + System.identityHashCode(log));
+
     }
 
     private void initializeListeners() {
@@ -61,7 +63,6 @@ public class Manager {
     private void readCustomersFromFile(String customersFile) {
         try (BufferedReader br = new BufferedReader(new FileReader(customersFile))) {
             String line;
-            int seqNo = 1;
             while ((line = br.readLine()) != null) {
                 System.out.println("Reading line: " + line); // Debugging line
                 String[] data = line.split(",");
@@ -72,21 +73,41 @@ public class Manager {
 
                 String name = data[0].trim();
                 String parcelID = data[1].trim();
+                if (customerQueue.containsCustomer(parcelID)) {
+                    log.addLog("Duplicate customer entry skipped: " + name + " with parcel " + parcelID);
+                    continue;
+                }
+                int seqNo = customerQueue.size() + 1; // Maintain sequence numbering
                 Customer customer = new Customer(seqNo, name, parcelID);
                 customerQueue.addCustomer(customer);
                 System.out.println("Added customer: " + customer); // Debugging successful additions
-                seqNo++;
             }
         } catch (IOException | NumberFormatException e) {
             System.err.println("Error reading customers file: " + e.getMessage());
         }
     }
 
+    public void startProcessing() {
+        Log log = Log.getInstance();
+        Worker worker = new Worker(customerQueue, parcelMap, log);
+        while (!customerQueue.isEmpty()) {
+            worker.processNextCustomer();
+        }
+        log.addLog("Data loaded successfully.");
+        log.addLog("No customers in the queue.");
+        updateParcelArea();
+        updateCustomerQueueArea();
+        updateLogArea();
+    }
+
     private void processNextCustomer() {
         Customer nextCustomer = customerQueue.getNextCustomer();
         if (nextCustomer == null) {
-            log.addLog("No more customers to process.");
-            updateLogArea();
+            if (log.getLogs().contains("No customers in the queue.")) {
+                log.addLog("No more customers to process.");
+            } else {
+                log.addLog("No customers in the queue.");
+            }
             return;
         }
 
@@ -107,12 +128,17 @@ public class Manager {
         try {
             String parcelsFile = "src/Parcels.csv";
             String customersFile = "src/Custs.csv";
+            System.out.println("Loading files: " + parcelsFile + ", " + customersFile);
+
             initializeData(parcelsFile, customersFile);
+            System.out.println("Files loaded successfully.");
+
             updateParcelArea();
             updateCustomerQueueArea();
             log.addLog("Data loaded successfully.");
             updateLogArea();
         } catch (Exception e) {
+            System.err.println("Error loading data: " + e.getMessage());
             log.addLog("Error loading data: " + e.getMessage());
             updateLogArea();
         }

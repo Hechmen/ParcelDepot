@@ -13,6 +13,8 @@ public class Log {
         if (instance == null) {
             instance = new Log();
         }
+        System.out.println("Log instance: " + System.identityHashCode(instance)); // Debugging line
+
         return instance;
     }
     public void addLog(String message) {
