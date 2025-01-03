@@ -62,4 +62,15 @@ public class Worker {
         }
     }
 
+    public String generateStatistics(){
+        int uncollectedParcels = parcelMap.countUncollectedParcels();
+        int parcelsOver5Days = parcelMap.countParcelsInDepotForDays(5);
+        double totalFees = parcelMap.calculateTotalFeesCollected();
+
+        return "Statistics:\n" +
+                "Uncollected parcels: " + uncollectedParcels + "\n" +
+                "Parcels in depot for more than 5 days: " + parcelsOver5Days + "\n" +
+                "Total fees collected: $" + totalFees;
+    }
+
 }

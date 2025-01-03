@@ -7,9 +7,7 @@
     <list default="true" id="36bbaae1-7108-46c6-bf0b-3b50aa2576f6" name="Changes" comment="Parcel and Status">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Manager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parcel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parcel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ParcelMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ParcelMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/View.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Worker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Worker.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -125,7 +123,7 @@
       <workItem from="1734969292972" duration="17115000" />
       <workItem from="1735495785690" duration="4074000" />
       <workItem from="1735861060138" duration="11568000" />
-      <workItem from="1735878891049" duration="1862000" />
+      <workItem from="1735878891049" duration="3501000" />
     </task>
     <task id="LOCAL-00001" summary="Parcel and Status">
       <option name="closed" value="true" />

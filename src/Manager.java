@@ -1,8 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Manager {
     private ParcelMap parcelMap;
@@ -19,7 +17,7 @@ public class Manager {
         this.view = new View();
 
         initializeListeners();
-        System.out.println("Log instance: " + System.identityHashCode(log));
+        //System.out.println("Log instance: " + System.identityHashCode(log)); // Debugging line
 
     }
 
@@ -39,7 +37,7 @@ public class Manager {
         try (BufferedReader br = new BufferedReader(new FileReader(parcelsFile))) {
             String line;
             while ((line = br.readLine()) != null) {
-                System.out.println("Reading line: " + line); // Debugging line
+//                System.out.println("Reading line: " + line); // Debugging line
                 String[] data = line.split(",");
                 if (data.length != 6) {
                     System.err.println("Invalid line format: " + line); // Debugging invalid lines
@@ -54,7 +52,7 @@ public class Manager {
                 int daysInDepot = Integer.parseInt(data[5].trim());
                 Parcel parcel = new Parcel(id, weight, width, length, height, daysInDepot, Status.UNCOLLECTED);
                 parcelMap.addParcel(parcel);
-                System.out.println("Added parcel: " + parcel); // Debugging successful additions
+//                System.out.println("Added parcel: " + parcel); // Debugging successful additions
             }
         } catch (IOException | NumberFormatException e) {
             System.err.println("Error reading parcels file: " + e.getMessage());
@@ -65,7 +63,7 @@ public class Manager {
         try (BufferedReader br = new BufferedReader(new FileReader(customersFile))) {
             String line;
             while ((line = br.readLine()) != null) {
-                System.out.println("Reading line: " + line); // Debugging line
+//                System.out.println("Reading line: " + line); // Debugging line
                 String[] data = line.split(",");
                 if (data.length != 2) {
                     System.err.println("Invalid line format: " + line); // Debugging invalid lines
@@ -81,7 +79,7 @@ public class Manager {
                 int seqNo = customerQueue.size() + 1; // Maintain sequence numbering
                 Customer customer = new Customer(seqNo, name, parcelID);
                 customerQueue.addCustomer(customer);
-                System.out.println("Added customer: " + customer); // Debugging successful additions
+//                System.out.println("Added customer: " + customer); // Debugging successful additions
             }
         } catch (IOException | NumberFormatException e) {
             System.err.println("Error reading customers file: " + e.getMessage());
@@ -103,52 +101,26 @@ public class Manager {
     }
 
     private void logStatistics() {
-        int uncollectedParcels = parcelMap.countUncollectedParcels();
-        int parcelsOver5Days = parcelMap.countParcelsInDepotForDays(5);
-        double totalFees = parcelMap.calculateTotalFeesCollected();
-
-        String stats = "Statistics:\n" +
-                "Uncollected parcels: " + uncollectedParcels + "\n" +
-                "Parcels in depot for more than 5 days: " + parcelsOver5Days + "\n" +
-                "Total fees collected: $" + totalFees;
-
+        String stats = worker.generateStatistics();
         log.addLog(stats);
-        view.getLogArea().setText(stats);
         updateLogArea();
     }
 
     private void processNextCustomer() {
-        Customer nextCustomer = customerQueue.getNextCustomer();
-        if (nextCustomer == null) {
-            if (log.getLogs().contains("No customers in the queue.")) {
-                log.addLog("No more customers to process.");
-            } else {
-                log.addLog("No customers in the queue.");
-            }
-            return;
-        }
-
-        Parcel parcel = parcelMap.findParcel(nextCustomer.getParcelID());
-        if (parcel != null) {
-            worker.processNextCustomer();
-            view.getCurrentParcelArea().setText(parcel.toString()); // Highlight the current parcel
-            updateParcelArea();
-            updateCustomerQueueArea();
-            updateLogArea();
-        } else {
-            log.addLog("Parcel not found for customer: " + nextCustomer.getName());
-            updateLogArea();
-        }
+        worker.processNextCustomer();
+        updateCustomerQueueArea();
+        updateCustomerQueueArea();
+        updateLogArea();
     }
 
     private void loadData() {
         try {
             String parcelsFile = "src/Parcels.csv";
             String customersFile = "src/Custs.csv";
-            System.out.println("Loading files: " + parcelsFile + ", " + customersFile);
+            //System.out.println("Loading files: " + parcelsFile + ", " + customersFile); //Debugging line
 
             initializeData(parcelsFile, customersFile);
-            System.out.println("Files loaded successfully.");
+            //System.out.println("Files loaded successfully.");
 
             updateParcelArea();
             updateCustomerQueueArea();

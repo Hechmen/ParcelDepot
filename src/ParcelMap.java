@@ -30,7 +30,9 @@ public class ParcelMap {
     }
 
     public List<Parcel> getUncollectedParcels() {
-        return parcels.values().stream().filter(parcel -> parcel.getStatus() == Status.UNCOLLECTED).collect(Collectors.toList());
+        return parcels.values().stream()
+                .filter(parcel -> parcel.getStatus() == Status.UNCOLLECTED)
+                .collect(Collectors.toList());
     }
 
     public int countUncollectedParcels() {
