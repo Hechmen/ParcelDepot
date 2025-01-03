@@ -50,6 +50,7 @@ public class Worker {
         }
 
         double fee = calculateFee(parcel);
+        parcel.setFee(fee);
         parcel.setStatus(Status.COLLECTED);
         log.addLog("Customer " + nextCustomer.getName() + " collected parcel " + parcelID + " with fee " + String.format("%.2f", fee));
     }

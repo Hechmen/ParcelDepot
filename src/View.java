@@ -13,6 +13,7 @@ public class View {
     private JButton loadButton;
     private JButton processButton;
     private JButton displayLogButton;
+    private JButton viewStatisticsButton;
 
     public View() {
         createAndShowGUI();
@@ -67,10 +68,12 @@ public class View {
         loadButton = new JButton("Load Data");
         processButton = new JButton("Process Next Customer");
         displayLogButton = new JButton("Display Logs");
+        viewStatisticsButton = new JButton("View Statistics");
 
         buttonPanel.add(loadButton);
         buttonPanel.add(processButton);
         buttonPanel.add(displayLogButton);
+        buttonPanel.add(viewStatisticsButton);
 
         // Add main panel and button panel to frame
         frame.add(mainPanel, BorderLayout.CENTER);
@@ -107,5 +110,9 @@ public class View {
 
     public void addDisplayLogButtonListener(ActionListener listener) {
         displayLogButton.addActionListener(listener);
+    }
+
+    public void addViewStatisticsButtonListener(ActionListener listener) {
+        viewStatisticsButton.addActionListener(listener);
     }
 }

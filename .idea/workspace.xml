@@ -5,19 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36bbaae1-7108-46c6-bf0b-3b50aa2576f6" name="Changes" comment="Parcel and Status">
-      <change afterPath="$PROJECT_DIR$/Test/CustomerQueueTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test/LogTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test/ManagerTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test/ParcelMapTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test/ParcelTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test/ProcessingFlowTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test/SortingTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test/WorkerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ParcelDepot.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ParcelDepot.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CustomerQueue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CustomerQueue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Log.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Log.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Manager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parcel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parcel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ParcelMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ParcelMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/View.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Worker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Worker.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -53,7 +45,7 @@
     "Application.Main.executor": "Run",
     "Application.Manager.executor": "Run",
     "Downloaded.Files.Path.Enabled": "false",
-    "JUnit.All in ParcelDepot.executor": "Debug",
+    "JUnit.All in ParcelDepot.executor": "Run",
     "JUnit.ManagerTest.executor": "Run",
     "JUnit.ManagerTest.testFullSystem.executor": "Run",
     "Repository.Attach.Annotations": "false",
@@ -105,9 +97,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.All in ParcelDepot" />
         <item itemvalue="JUnit.ManagerTest" />
         <item itemvalue="JUnit.ManagerTest.testFullSystem" />
-        <item itemvalue="JUnit.All in ParcelDepot" />
       </list>
     </recent_temporary>
   </component>
@@ -132,7 +124,8 @@
       <workItem from="1734876269681" duration="11231000" />
       <workItem from="1734969292972" duration="17115000" />
       <workItem from="1735495785690" duration="4074000" />
-      <workItem from="1735861060138" duration="11204000" />
+      <workItem from="1735861060138" duration="11568000" />
+      <workItem from="1735878891049" duration="1862000" />
     </task>
     <task id="LOCAL-00001" summary="Parcel and Status">
       <option name="closed" value="true" />

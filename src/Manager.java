@@ -27,6 +27,7 @@ public class Manager {
         view.addLoadButtonListener(e -> loadData());
         view.addProcessButtonListener(e -> processNextCustomer());
         view.addDisplayLogButtonListener(e -> updateLogArea());
+        view.addViewStatisticsButtonListener(e -> logStatistics());
     }
 
     public void initializeData(String parcelsFile, String customersFile) {
@@ -97,6 +98,22 @@ public class Manager {
         log.addLog("No customers in the queue.");
         updateParcelArea();
         updateCustomerQueueArea();
+        updateLogArea();
+        logStatistics();
+    }
+
+    private void logStatistics() {
+        int uncollectedParcels = parcelMap.countUncollectedParcels();
+        int parcelsOver5Days = parcelMap.countParcelsInDepotForDays(5);
+        double totalFees = parcelMap.calculateTotalFeesCollected();
+
+        String stats = "Statistics:\n" +
+                "Uncollected parcels: " + uncollectedParcels + "\n" +
+                "Parcels in depot for more than 5 days: " + parcelsOver5Days + "\n" +
+                "Total fees collected: $" + totalFees;
+
+        log.addLog(stats);
+        view.getLogArea().setText(stats);
         updateLogArea();
     }
 

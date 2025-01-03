@@ -6,6 +6,7 @@ public class Parcel {
     private int height;
     private int daysInDepot;
     private Status status;
+    private double fee;
 
     public Parcel(String ID, double weight, int width, int length, int height, int daysInDepot, Status status) {
         this.ID = ID;
@@ -15,6 +16,7 @@ public class Parcel {
         this.height = height;
         this.daysInDepot = daysInDepot;
         this.status = status;
+        this.fee = 0.0;
     }
 
     public String getID() {
@@ -41,6 +43,14 @@ public class Parcel {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public double getFee() {
+        return fee;
+    }
+
+    public void setFee(double fee) {
+        this.fee = fee;
     }
 
     @Override

@@ -29,6 +29,29 @@ public class ParcelMap {
         return parcels.values();
     }
 
+    public List<Parcel> getUncollectedParcels() {
+        return parcels.values().stream().filter(parcel -> parcel.getStatus() == Status.UNCOLLECTED).collect(Collectors.toList());
+    }
+
+    public int countUncollectedParcels() {
+        return (int) parcels.values().stream()
+                .filter(parcel -> parcel.getStatus() == Status.UNCOLLECTED)
+                .count();
+    }
+
+    public int countParcelsInDepotForDays(int days) {
+        return (int) parcels.values().stream()
+                .filter(parcel -> parcel.getDaysInDepot() > days)
+                .count();
+    }
+
+    public double calculateTotalFeesCollected() {
+        return parcels.values().stream()
+                .filter(parcel -> parcel.getStatus() == Status.COLLECTED)
+                .mapToDouble(Parcel::getFee) // Add a `fee` attribute to Parcel if not already present
+                .sum();
+    }
+
     /**
      * Sort parcels by a given comparator.
      *
