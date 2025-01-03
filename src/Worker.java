@@ -53,6 +53,7 @@ public class Worker {
         parcel.setFee(fee);
         parcel.setStatus(Status.COLLECTED);
         log.addLog("Customer " + nextCustomer.getName() + " collected parcel " + parcelID + " with fee " + String.format("%.2f", fee));
+
     }
 
     // New method to process all customers in the queue

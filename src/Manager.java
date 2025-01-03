@@ -17,7 +17,7 @@ public class Manager {
         this.view = new View();
 
         initializeListeners();
-        //System.out.println("Log instance: " + System.identityHashCode(log)); // Debugging line
+        System.out.println("Log instance: " + System.identityHashCode(log)); // Debugging line
 
     }
 
@@ -109,18 +109,19 @@ public class Manager {
     private void processNextCustomer() {
         worker.processNextCustomer();
         updateCustomerQueueArea();
-        updateCustomerQueueArea();
         updateLogArea();
+        updateParcelArea();
+        updateCurrentParcelArea();
     }
 
     private void loadData() {
         try {
             String parcelsFile = "src/Parcels.csv";
             String customersFile = "src/Custs.csv";
-            //System.out.println("Loading files: " + parcelsFile + ", " + customersFile); //Debugging line
+            System.out.println("Loading files: " + parcelsFile + ", " + customersFile); //Debugging line
 
             initializeData(parcelsFile, customersFile);
-            //System.out.println("Files loaded successfully.");
+            System.out.println("Files loaded successfully.");
 
             updateParcelArea();
             updateCustomerQueueArea();
@@ -143,6 +144,21 @@ public class Manager {
 
     private void updateLogArea() {
         view.getLogArea().setText(log.getLogs());
+    }
+
+    private void updateCurrentParcelArea() {
+        Customer nextCustomer = customerQueue.peekNextCustomer();
+        if (nextCustomer != null) {
+            String parcelID = nextCustomer.getParcelID();
+            Parcel currentParcel = parcelMap.findParcel(parcelID);
+            if (currentParcel != null) {
+                view.getCurrentParcelArea().setText(currentParcel.toString());
+            } else {
+                view.getCurrentParcelArea().setText("Parcel not found for ID: " + parcelID);
+            }
+        } else {
+            view.getCurrentParcelArea().setText("No parcel currently being processed.");
+        }
     }
 
 
