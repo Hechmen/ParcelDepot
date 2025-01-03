@@ -1,8 +1,6 @@
-import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,16 +8,23 @@ public class Manager {
     private ParcelMap parcelMap;
     private CustomerQueue customerQueue;
     private Log log;
-    private JFrame frame;
-    private JTextArea parcelArea;
-    private JTextArea customerQueueArea;
-    private JTextArea logArea;
+    private Worker worker;
+    private View view;
 
     public Manager(ParcelMap parcelMap, CustomerQueue customerQueue) {
         this.parcelMap = parcelMap;
         this.customerQueue = customerQueue;
         this.log = Log.getInstance();
-        createAndShowGUI();
+        this.worker = new Worker(customerQueue, parcelMap, log);
+        this.view = new View();
+
+        initializeListeners();
+    }
+
+    private void initializeListeners() {
+        view.addLoadButtonListener(e -> loadData());
+        view.addProcessButtonListener(e -> processNextCustomer());
+        view.addDisplayLogButtonListener(e -> updateLogArea());
     }
 
     public void initializeData(String parcelsFile, String customersFile) {
@@ -77,98 +82,31 @@ public class Manager {
         }
     }
 
-    public void startProcessing() {
-        Log log = Log.getInstance();
-        Worker worker = new Worker(customerQueue, parcelMap, log);
-        while (!customerQueue.isEmpty()) {
-            worker.processNextCustomer();
+    private void processNextCustomer() {
+        Customer nextCustomer = customerQueue.getNextCustomer();
+        if (nextCustomer == null) {
+            log.addLog("No more customers to process.");
+            updateLogArea();
+            return;
         }
-        updateParcelArea(); // Update the GUI after processing
-        updateCustomerQueueArea();
-        updateLogArea();
-    }
 
-    private void createAndShowGUI() {
-        // Main frame
-        frame = new JFrame("Depot Management System");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new BorderLayout());
-        frame.setSize(800, 600);
-
-        // Panels
-        JPanel mainPanel = new JPanel(new GridLayout(1, 3));
-
-        // Parcels Panel
-        JPanel parcelPanel = new JPanel(new BorderLayout());
-        parcelPanel.setBorder(BorderFactory.createTitledBorder("Parcels in Depot"));
-        parcelArea = new JTextArea();
-        parcelArea.setEditable(false);
-        parcelPanel.add(new JScrollPane(parcelArea), BorderLayout.CENTER);
-
-        // Customer Queue Panel
-        JPanel customerQueuePanel = new JPanel(new BorderLayout());
-        customerQueuePanel.setBorder(BorderFactory.createTitledBorder("Customer Queue"));
-        customerQueueArea = new JTextArea();
-        customerQueueArea.setEditable(false);
-        customerQueuePanel.add(new JScrollPane(customerQueueArea), BorderLayout.CENTER);
-
-        // Logs Panel
-        JPanel logPanel = new JPanel(new BorderLayout());
-        logPanel.setBorder(BorderFactory.createTitledBorder("Logs"));
-        logArea = new JTextArea();
-        logArea.setEditable(false);
-        logPanel.add(new JScrollPane(logArea), BorderLayout.CENTER);
-
-        // Add panels to the main panel
-        mainPanel.add(parcelPanel);
-        mainPanel.add(customerQueuePanel);
-        mainPanel.add(logPanel);
-
-        // Buttons
-        JPanel buttonPanel = new JPanel();
-        JButton loadButton = new JButton("Load Data");
-        JButton processButton = new JButton("Process all Customers");
-        JButton displayLogButton = new JButton("Display Logs");
-
-        // Add action listeners
-        loadButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                loadData(); // Calls initializeData internally
-            }
-        });
-
-        processButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                startProcessing(); // Processes all customers in the queue
-            }
-        });
-
-        displayLogButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                updateLogArea(); // Displays logs in the log panel
-            }
-        });
-
-        // Add buttons to the button panel
-        buttonPanel.add(loadButton);
-        buttonPanel.add(processButton);
-        buttonPanel.add(displayLogButton);
-
-        // Add main panel and button panel to frame
-        frame.add(mainPanel, BorderLayout.CENTER);
-        frame.add(buttonPanel, BorderLayout.SOUTH);
-
-        // Display the frame
-        frame.setVisible(true);
+        Parcel parcel = parcelMap.findParcel(nextCustomer.getParcelID());
+        if (parcel != null) {
+            worker.processNextCustomer();
+            view.getCurrentParcelArea().setText(parcel.toString()); // Highlight the current parcel
+            updateParcelArea();
+            updateCustomerQueueArea();
+            updateLogArea();
+        } else {
+            log.addLog("Parcel not found for customer: " + nextCustomer.getName());
+            updateLogArea();
+        }
     }
 
     private void loadData() {
         try {
-            String parcelsFile = "src/Parcels.csv"; // Update with actual path
-            String customersFile = "src/Custs.csv"; // Update with actual path
+            String parcelsFile = "src/Parcels.csv";
+            String customersFile = "src/Custs.csv";
             initializeData(parcelsFile, customersFile);
             updateParcelArea();
             updateCustomerQueueArea();
@@ -181,15 +119,15 @@ public class Manager {
     }
 
     private void updateParcelArea() {
-        parcelArea.setText(parcelMap.toString());
+        view.getParcelArea().setText(parcelMap.toString());
     }
 
     private void updateCustomerQueueArea() {
-        customerQueueArea.setText(customerQueue.toString());
+        view.getCustomerQueueArea().setText(customerQueue.toString());
     }
 
     private void updateLogArea() {
-        logArea.setText(log.getLogs());
+        view.getLogArea().setText(log.getLogs());
     }
 
 
